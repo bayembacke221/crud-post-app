@@ -4,6 +4,7 @@ import {NgClass} from "@angular/common";
 import {Posts} from "../../../_be/posts";
 import {PostsService} from "../../../_services/posts.service";
 import {ToastrService} from "ngx-toastr";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-main-create-post',
@@ -19,7 +20,7 @@ export class MainCreatePostComponent {
   generalData: any = {title: '', slug: '', body: '',thumbnail: ''};
 
 
-  constructor(private postService: PostsService,private toastr: ToastrService) {
+  constructor(private postService: PostsService,private router:Router) {
   }
 
   /**
@@ -37,7 +38,7 @@ export class MainCreatePostComponent {
     };
     this.postService.addPost(post).subscribe(
       response => {
-        console.log(response);
+        this.router.navigateByUrl('posts').then(r => console.log('redirect to posts list'));
         this.resetForm();
 
       },

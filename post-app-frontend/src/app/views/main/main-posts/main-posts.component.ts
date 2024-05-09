@@ -3,6 +3,7 @@ import {PostsService} from "../../../_services/posts.service";
 import {Posts} from "../../../_be/posts";
 import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @Component({
   selector: 'app-main-posts',
@@ -11,13 +12,16 @@ import {Router, RouterLink, RouterLinkActive} from "@angular/router";
     NgForOf,
     RouterLink,
     RouterLinkActive,
-    NgIf
+    NgIf,
+    NgxPaginationModule
   ],
   templateUrl: './main-posts.component.html',
   styleUrl: './main-posts.component.css'
 })
 export class MainPostsComponent {
 
+  pageSize=5;
+  currentPage=1;
   postsList:Posts[] = [];
   deletedPost:Posts;
   showModal=false;
