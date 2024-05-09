@@ -1,0 +1,10 @@
+<a class="bg-white flex gap-4 py-2 pl-4 hover:bg-green-300 hover:text-green-800 hover:rounded"
+   [routerLink]="link"
+   routerLinkActive="active-link"
+   [routerLinkActiveOptions]="{exact: true}"
+>
+  <ng-container
+    *ngComponentOutlet="icon">
+  </ng-container>
+  <span>{{title}} </span>
+</a>

@@ -3,6 +3,7 @@ import {MainNavbarComponent} from "../../components/navbars/main-navbar/main-nav
 import {RouterOutlet} from "@angular/router";
 import {MainFooterComponent} from "../../components/footer/main-footer/main-footer.component";
 import {NgClass} from "@angular/common";
+import {SidebarComponent} from "../../components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-main',
@@ -11,7 +12,8 @@ import {NgClass} from "@angular/common";
     MainNavbarComponent,
     RouterOutlet,
     MainFooterComponent,
-    NgClass
+    NgClass,
+    SidebarComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'

@@ -1,6 +1,11 @@
 <app-main-navbar class="fixed z-0 w-full " (sidebarToggle)="toggleSidebar()"></app-main-navbar>
 <div class="flex">
-
+  <div class="md:top-[80px] top-0 fixed z-40 bottom-1
+    transition duration-300 ease-in box-border max-w-[260px]"
+       [ngClass]="{'translate-x-0 md:-translate-x-[260px]' : isSidebarOpen,
+         '-translate-x-[260px] md:translate-x-0' : !isSidebarOpen}">
+    <app-sidebar (closeMenu)="onCloseMenu()"></app-sidebar>
+  </div>
   <div class="relative min-h-[calc(100vh_-_81px)] bg-blueGray-100 w-full transition duration-300 ease-in bg-white mr-3 ml-3 md:mr-5 top-[81px]"
        [ngClass]="{'md:ml-5' : isSidebarOpen, 'md:ml-[260px]' : !isSidebarOpen}">
     <div class="bg-[#eef2f6] rounded-xl px-4 py-3 sm:mb-[63px] mb-[81px]">
