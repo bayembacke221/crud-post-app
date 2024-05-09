@@ -1,0 +1,11 @@
+<app-main-navbar class="fixed z-0 w-full " (sidebarToggle)="toggleSidebar()"></app-main-navbar>
+<div class="flex">
+    <div class="bg-[#eef2f6] rounded-xl px-4 py-3 sm:mb-[63px] mb-[81px]">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="mx-auto w-full absolute bottom-0">
+      <div class="h-0 border border-solid border-t-0 border-blueGray-800 opacity-50"></div>
+      <app-main-footer class="pl-4"></app-main-footer>
+    </div>
+
+</div>
