@@ -1,11 +1,13 @@
 import { Component, Input } from '@angular/core';
 import {RouterLink, RouterLinkActive} from "@angular/router";
+import {NgComponentOutlet} from "@angular/common";
 @Component({
   selector: 'app-nav-item',
   standalone: true,
   imports: [
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgComponentOutlet
   ],
   templateUrl: './nav-item.component.html',
   styleUrl: './nav-item.component.css'

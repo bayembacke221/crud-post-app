@@ -23,12 +23,12 @@ export class SidebarComponent {
       icon: heroUsers ,
     },
     {
-      title: 'Ajouter un post',
+      title: 'Add post',
       link: '/post/create',
       icon : heroUsers,
     },
     {
-      title: 'List post',
+      title: 'List posts',
       link: '/posts',
       icon: heroUsers ,
     },
