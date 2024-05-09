@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {PostsService} from "../../../_services/posts.service";
 import {Posts} from "../../../_be/posts";
-import {NgForOf} from "@angular/common";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {NgForOf, NgIf} from "@angular/common";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 
 @Component({
   selector: 'app-main-posts',
@@ -10,19 +10,22 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
   imports: [
     NgForOf,
     RouterLink,
-    RouterLinkActive
+    RouterLinkActive,
+    NgIf
   ],
   templateUrl: './main-posts.component.html',
   styleUrl: './main-posts.component.css'
 })
-export class MainPostsComponent implements OnInit{
+export class MainPostsComponent {
 
   postsList:Posts[] = [];
+  deletedPost:Posts;
+  showModal=false;
   ngOnInit(): void {
     this.getAllPosts();
   }
 
-  constructor(private post:PostsService) {
+  constructor(private post:PostsService, private router : Router,) {
   }
 
   getAllPosts(){
@@ -31,4 +34,21 @@ export class MainPostsComponent implements OnInit{
     })
   }
 
+  toggleModal(post:Posts){
+    this.deletedPost = post;
+    this.showModal = !this.showModal;
+  }
+
+  deletePost(id:number){
+    this.post.deletePost(id).subscribe((data)=>{
+      this.getAllPosts();
+    })
+  }
+
+
+  redirectTo(){
+    this.router.navigateByUrl('/posts').then(() => {
+      window.location.reload();
+    });
+  }
 }

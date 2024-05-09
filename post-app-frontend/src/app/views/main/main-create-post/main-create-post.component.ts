@@ -38,7 +38,7 @@ export class MainCreatePostComponent {
     this.postService.addPost(post).subscribe(
       response => {
         console.log(response);
-        this.generalData = {title: '', slug: '', body: '',thumbnail: ''};
+        this.resetForm();
 
       },
       error => {
@@ -48,9 +48,12 @@ export class MainCreatePostComponent {
   }
 
 
-  showsuccess() {
-    this.toastr.success('Post created successfully', 'Success');
-    this.generalData = {title: '', slug: '', body: '',thumbnail: ''};
+  resetForm() {
+    this.generalData.title = '';
+    this.generalData.slug = '';
+    this.generalData.body = '';
+    this.generalData.thumbnail = '';
+
   }
 
 

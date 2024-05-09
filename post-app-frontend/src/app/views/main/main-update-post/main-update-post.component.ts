@@ -22,7 +22,8 @@ export class MainUpdatePostComponent {
   postId!: number;
   post:Posts;
   generalData: any = {title: '', slug: '', body: '',thumbnail: ''};
-  constructor( private postService: PostsService, private router : Router, private toastr: ToastrService) {
+  constructor( private postService: PostsService, private router : Router,
+               ) {
   }
 
   ngOnInit() {
@@ -45,8 +46,7 @@ export class MainUpdatePostComponent {
     this.postService.updatePost(post).subscribe(
       response => {
         console.log(response);
-        this.showsuccess()
-        this.redirectTo('/posts');
+        this.redirectTo();
       },
       error => {
         console.log(error);
@@ -54,12 +54,10 @@ export class MainUpdatePostComponent {
     )
   }
 
-  showsuccess() {
-    this.toastr.success('Post updated successfully', 'Success');
-    this.generalData = {};
-  }
-  redirectTo(uri:string){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
-      this.router.navigate([uri]));
+
+  redirectTo(){
+    this.router.navigateByUrl('/posts').then(() => {
+      window.location.reload();
+    });
   }
 }
