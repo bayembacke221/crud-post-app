@@ -41,12 +41,14 @@ export class MainPostsComponent {
 
   deletePost(id:number){
     this.post.deletePost(id).subscribe((data)=>{
-      this.getAllPosts();
+      this.redirectTo()
     })
   }
 
 
   redirectTo(){
+    this.showModal = !this.showModal;
+    this.getAllPosts();
     this.router.navigateByUrl('/posts').then(() => {
       window.location.reload();
     });
