@@ -1,48 +1,64 @@
-const express = require('express'),
-    router = express.Router()
+const express = require('express');
+const router = express.Router();
+const PostService = require('../services/post.service');
+const Post = require('../models/post.model');
 
-const service = require('../services/post.service')
+class PostController {
+    constructor() {
+        this.postService = new PostService();
+        this.router = router;
+        this.setupRoutes();
+    }
 
+    setupRoutes() {
+        this.router.get('/', this.getAllPosts.bind(this));
+        this.router.get('/:id', this.getPostById.bind(this));
+        this.router.delete('/:id', this.deletePost.bind(this));
+        this.router.post('/', this.createPost.bind(this));
+        this.router.put('/:id', this.updatePost.bind(this));
+    }
 
-router.get('/', async (req, res) => {
-    const posts = await service.getAllPosts()
-    res.send(posts)
-})
+    async getAllPosts(req, res) {
+        const posts = await this.postService.getAllPosts();
+        res.send(posts);
+    }
 
-router.get('/:id', async (req, res) => {
-    const post = await service.getPostById(req.params.id)
-    if (post == undefined)
-        res.status(404).json('no record with given id : ' + req.params.id)
-    else
-        res.send(post)
-})
+    async getPostById(req, res) {
+        const post = await this.postService.getPostById(req.params.id);
+        if (!post) {
+            res.status(404).json(`no record with given id: ${req.params.id}`);
+        } else {
+            res.send(post);
+        }
+    }
 
-router.delete('/:id', async (req, res) => {
-    const affectedRows = await service.deletePost(req.params.id)
-    if (affectedRows === 0)
-        res.status(404).json('no record with given id : ' + req.params.id)
-    else
-        res.send('deleted successfully.')
-})
+    async deletePost(req, res) {
+        const affectedRows = await this.postService.deletePost(req.params.id);
+        if (affectedRows === 0) {
+            res.status(404).json(`no record with given id: ${req.params.id}`);
+        } else {
+            res.send('deleted successfully.');
+        }
+    }
 
-router.post('/', async (req, res) => {
-    const { title, slug, body, thumbnails, isPublished } = req.body;
-    const post = { title, slug, body, thumbnails, isPublished };
-    await service.addOrPost(post)
-    res.status(201).send('created successfully.')
-})
+    async createPost(req, res) {
+        const { title, slug, body, thumbnails, isPublished } = req.body;
+        const post = new Post(title, slug, body, thumbnails, isPublished);
+        await this.postService.addOrPost(post);
+        res.status(201).send('created successfully.');
+    }
 
-router.put('/:id', async (req, res) => {
-    const id = req.params.id;
-    const { title, slug, body, thumbnails, isPublished } = req.body;
-    const post = { title, slug, body, thumbnails, isPublished };
-    const affectedRows = await service.editPost(post, id)
-    if (affectedRows === 0)
-        res.status(404).json('no record with given id : ' + req.params.id)
-    else
-        res.send('updated successfully.')
-})
+    async updatePost(req, res) {
+        const id = req.params.id;
+        const { title, slug, body, thumbnails, isPublished } = req.body;
+        const post = new Post(title, slug, body, thumbnails, isPublished);
+        const affectedRows = await this.postService.editPost(post, id);
+        if (affectedRows === 0) {
+            res.status(404).json(`no record with given id: ${req.params.id}`);
+        } else {
+            res.send('updated successfully.');
+        }
+    }
+}
 
-
-
-module.exports = router;
+module.exports = new PostController().router;
