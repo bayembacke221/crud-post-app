@@ -1,31 +1,31 @@
-const express = require('express'),
-    app = express(),
-    bodyparser = require('body-parser');
-require('express-async-errors')
-cors = require('cors');
-const db = require('./db'),
-    postRoutes = require('./controllers/post.controller')
-const PORT = 3000
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+require('express-async-errors');
+const cors = require('cors');
+const db = require('./db');
+const postRoutes = require('./routes/post.routes'); // Importer les routes pour les posts
+const PORT = 3000;
 
-//middleware
-app.use(bodyparser.json())
-
+// Middleware
+app.use(bodyParser.json());
 app.use(cors({
     origin: 'http://localhost:4200'
 }));
 
-//routes
-app.use('/api/posts', postRoutes)
+// Routes
+app.use('/api/posts', postRoutes); // Utiliser les routes pour les posts
+
+// Gestion des erreurs
 app.use((err, req, res, next) => {
-    console.log(err)
-    res.status(err.status || 500).send('Something went wrong!')
-})
+    console.log(err);
+    res.status(err.status || 500).send('Something went wrong!');
+});
 
-
+// Démarrer le serveur
 db.query("SELECT 1")
     .then(() => {
-        console.log('db connection  succeeded.')
-        app.listen(PORT,
-            () => console.log(`server started at ${PORT}`))
+        console.log('db connection succeeded.');
+        app.listen(PORT, () => console.log(`Server started at ${PORT}`));
     })
-    .catch(err => console.log('db connection failed. \n' + err))
+    .catch(err => console.log('db connection failed. \n' + err));

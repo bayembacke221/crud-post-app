@@ -1,21 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const PostService = require('../services/post.service');
 const Post = require('../models/post.model');
+const PostService = require('../services/post.service');
 
 class PostController {
     constructor() {
         this.postService = new PostService();
-        this.router = router;
-        this.setupRoutes();
-    }
-
-    setupRoutes() {
-        this.router.get('/', this.getAllPosts.bind(this));
-        this.router.get('/:id', this.getPostById.bind(this));
-        this.router.delete('/:id', this.deletePost.bind(this));
-        this.router.post('/', this.createPost.bind(this));
-        this.router.put('/:id', this.updatePost.bind(this));
     }
 
     async getAllPosts(req, res) {
@@ -61,4 +49,4 @@ class PostController {
     }
 }
 
-module.exports = new PostController().router;
+module.exports = PostController;
