@@ -1,9 +1,9 @@
 export interface Posts{
-  id: number;
+  id?: number;
   title: string;
   slug: string;
   body: string;
   thumbnails: string;
-  isPublished: boolean;
-  createdAt: Date;
+  isPublished: number;
+  createdAt?: Date;
 }

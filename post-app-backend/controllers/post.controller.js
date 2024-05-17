@@ -31,16 +31,14 @@ class PostController {
 
     async createPost(req, res) {
         const { title, slug, body, thumbnails, isPublished } = req.body;
-        const post = new Post(title, slug, body, thumbnails, isPublished);
-        await this.postService.addOrPost(post);
+        const affectedRows = await this.postService.addOrPost({ title, slug, body, thumbnails, isPublished });
         res.status(201).send('created successfully.');
     }
 
     async updatePost(req, res) {
         const id = req.params.id;
         const { title, slug, body, thumbnails, isPublished } = req.body;
-        const post = new Post(title, slug, body, thumbnails, isPublished);
-        const affectedRows = await this.postService.editPost(post, id);
+        const affectedRows = await this.postService.editPost({ title, slug, body, thumbnails, isPublished }, id);
         if (affectedRows === 0) {
             res.status(404).json(`no record with given id: ${req.params.id}`);
         } else {

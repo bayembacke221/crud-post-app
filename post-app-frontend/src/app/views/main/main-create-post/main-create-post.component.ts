@@ -28,14 +28,13 @@ export class MainCreatePostComponent {
   createPost() {
 
     const post: Posts = {
-      id: 0,
       title: this.generalData.title,
       slug: this.generalData.slug,
       body: this.generalData.body,
       thumbnails: this.generalData.thumbnail,
-      isPublished: false,
-      createdAt: new Date(),
+      isPublished: 1,
     };
+
     this.postService.addPost(post).subscribe(
       response => {
         this.router.navigateByUrl('posts').then(r => console.log('redirect to posts list'));
@@ -54,8 +53,12 @@ export class MainCreatePostComponent {
     this.generalData.slug = '';
     this.generalData.body = '';
     this.generalData.thumbnail = '';
-
+    this.redirectTo()
   }
 
-
+  redirectTo(){
+    this.router.navigateByUrl('/').then(() => {
+      window.location.reload();
+    });
+  }
 }

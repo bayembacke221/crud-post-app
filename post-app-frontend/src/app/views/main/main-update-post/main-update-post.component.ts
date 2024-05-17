@@ -40,7 +40,7 @@ export class MainUpdatePostComponent {
 
   updatePost(post: Posts) {
     post.id = this.postId;
-    post.isPublished = false;
+    post.isPublished = 0;
     console.log(post)
 
     this.postService.updatePost(post).subscribe(
@@ -56,7 +56,7 @@ export class MainUpdatePostComponent {
 
 
   redirectTo(){
-    this.router.navigateByUrl('/posts').then(() => {
+    this.router.navigateByUrl('/').then(() => {
       window.location.reload();
     });
   }

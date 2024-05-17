@@ -4,12 +4,12 @@ const Post = require('../models/post.model');
 class PostService {
     async getAllPosts() {
         const [records] = await db.query("SELECT * FROM posts");
-        return records.map(record => new Post(record.title, record.slug, record.body, record.thumbnails, record.isPublished));
+        return records.map(record => new Post(record.id,record.title, record.slug, record.body, record.thumbnails, record.isPublished,record.createdAt));
     }
 
     async getPostById(id) {
         const [[record]] = await db.query("SELECT * FROM posts WHERE id = ?", [id]);
-        return record ? new Post(record.title, record.slug, record.body, record.thumbnails, record.isPublished) : null;
+        return record ? new Post(record.id,record.title, record.slug, record.body, record.thumbnails, record.isPublished,record.createdAt) : null;
     }
 
     async deletePost(id) {
